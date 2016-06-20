@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 
-# A diagnostics tool (a modern 'inspect' module)
+# A diagnostics tool (think of it as a modernized 'inspect' module)
 # Finnish Institute of Occupational Health, 2016
 # MIT License
 
-# Missing: set, type
+# Currently missing: set, type
+
 
 def whatis_string(variable):
+    """ Prints type and length. """
     print('{} [{}]'.format(type(variable), len(variable)))
 
 
 def whatis_numeric(variable):
+    """ Prints type. """
     print(type(variable))
 
 
 def whatis_sequence(variable):
+    """ Prints type, size and types inside the sequence. """
     types = []
     for item in variable:
         types.append(type(item))
@@ -22,7 +26,7 @@ def whatis_sequence(variable):
 
 
 def whatis_object(variable):
-    """ Non standard-object. """
+    """ Prints type, attributes and methods."""
     public = [v for v in dir(variable) if not v.startswith('__')]
     attributes = []
     methods = []
@@ -37,6 +41,7 @@ def whatis_object(variable):
 
 
 def whatis_function(variable):
+    """ Prints type and first sentence of documentation. """
     if variable.__doc__:
         doc = variable.__doc__.split('.')[0]
     else:
@@ -45,16 +50,16 @@ def whatis_function(variable):
 
 
 def whatis(variable):
-    """ Pretty-print information about the variable. """
+    """ Main function """
 
-    # Check if variable belongs to builtin types
+    # Check if variable belongs to built-in types
     if isinstance(variable, (float, int, complex, bool)):
         whatis_numeric(variable)
     elif isinstance(variable, str):
         whatis_string(variable)
     elif isinstance(variable, (list, dict, tuple)):
         whatis_sequence(variable)
-    elif callable(variable):
+    elif callable(variable):  # Function (or constructor)
         whatis_function(variable)
-    else:  # Not a builtin
+    else:  # Object
         whatis_object(variable)
