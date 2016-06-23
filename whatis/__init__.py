@@ -25,7 +25,7 @@ def whatis_sequence(variable):
     print('{} [{}] {}'.format(type(variable), len(variable), set(types)))
 
 
-def whatis_object(variable):
+def whatis_object(variable, verbose=False):
     """ Prints type, attributes and methods."""
     public = [v for v in dir(variable) if not v.startswith('__')]
     attributes = []
@@ -36,8 +36,11 @@ def whatis_object(variable):
         else:
             attributes.append(item)
 
-    print(type(variable))
-    print('attributes:\n{}\nmethods:\n{}'.format(attributes, methods))
+    print('{} [attr.={}] [meth.={}]'.format(type(variable),
+                                            len(attributes),
+                                            len(methods)))
+    if verbose:
+        print('attributes:\n{}\nmethods:\n{}'.format(attributes, methods))
 
 
 def whatis_function(variable):
