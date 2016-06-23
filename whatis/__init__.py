@@ -52,7 +52,7 @@ def whatis_function(variable):
     print('{}\n{}'.format(type(variable), doc))
 
 
-def whatis(variable):
+def whatis(variable, verbose=False):
     """ Main function """
 
     # Check if variable belongs to built-in types
@@ -65,4 +65,4 @@ def whatis(variable):
     elif callable(variable):  # Function (or constructor)
         whatis_function(variable)
     else:  # Object
-        whatis_object(variable)
+        whatis_object(variable, verbose)
